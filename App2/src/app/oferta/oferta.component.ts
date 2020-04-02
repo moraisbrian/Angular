@@ -12,6 +12,7 @@ import { Oferta } from '../shared/oferta.model';
 export class OfertaComponent implements OnInit {
 
     public oferta: Oferta;
+    public imagemDestaque: string;
 
     constructor(
         private route: ActivatedRoute, 
@@ -20,8 +21,9 @@ export class OfertaComponent implements OnInit {
 
     ngOnInit(): void {
         this.ofertasService.getOfertaPorId(this.route.snapshot.params['id'])
-            .then((oferta: Oferta) => {
+            .then((oferta: any) => {
                 this.oferta = oferta[0];
+                this.imagemDestaque = oferta[0].imagens[0].url;
             });
     }
 
