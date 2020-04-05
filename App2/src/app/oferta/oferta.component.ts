@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfertasService } from "../ofertas.service";
 import { Oferta } from '../shared/oferta.model';
-import { Observable, interval, Observer } from 'rxjs';
+import { Observable, interval, Observer, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-oferta',
@@ -10,15 +10,23 @@ import { Observable, interval, Observer } from 'rxjs';
     styleUrls: ['./oferta.component.css'],
     providers: [ OfertasService ]
 })
-export class OfertaComponent implements OnInit {
+export class OfertaComponent implements OnInit, OnDestroy {
 
     public oferta: Oferta;
     public imagemDestaque: string;
+
+    private tempoObservableSubscription: Subscription;
+    private meuOservableTesteSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute, 
         private ofertasService: OfertasService
         ) { }
+
+    ngOnDestroy(): void {
+        this.meuOservableTesteSubscription.unsubscribe();
+        this.tempoObservableSubscription.unsubscribe();
+    }
 
     ngOnInit(): void {
         this.ofertasService.getOfertaPorId(this.route.snapshot.params['id'])
@@ -36,18 +44,19 @@ export class OfertaComponent implements OnInit {
         });
 
         //Observable (observador)
-        meuObservableTeste.subscribe(
+        this.meuOservableTesteSubscription = meuObservableTeste.subscribe(
             (resultado: any) => console.log(resultado), // next()
             (erro: string) => console.log(erro), // error()
             () => console.log("Stream foi finalizada") // complete()
         );
 
-        /*
+        
         let tempo = interval(500);
-        tempo.subscribe((intervalo: number) => {
+        this.tempoObservableSubscription = tempo.subscribe((intervalo: number) => {
             console.log(intervalo);
-        })
+        });
 
+        /*
         this.route.params.subscribe(
             (parametro: any) => console.log(parametro),
             (erro: any) => console.log(erro),
