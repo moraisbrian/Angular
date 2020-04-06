@@ -6,7 +6,7 @@ import { OfertaComponent } from "./oferta/oferta.component";
 import { ComoUsarComponent } from './oferta/como-usar/como-usar.component';
 import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
-export const ROUTES:  Routes = [
+export const ROUTES: Routes = [
     { path: "", component: HomeComponent },
     { path: "restaurantes", component: RestaurantesComponent },
     { path: "diversao", component: DiversaoComponent },
