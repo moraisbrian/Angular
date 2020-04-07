@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { OfertasService } from "../ofertas.service";
 import { Oferta } from '../shared/oferta.model';
 // import { Observable, interval, Observer, Subscription } from 'rxjs';
@@ -29,11 +29,15 @@ export class OfertaComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.ofertasService.getOfertaPorId(this.route.snapshot.params['id'])
+        // Inserido Promise dentro do subscribe
+        this.route.params.subscribe((parametros: Params) => {
+            this.ofertasService.getOfertaPorId(parametros.id) // Alterado parâmetro passado para o subscribe. Parâmetro angerior: this.route.snapshot.params['id']
             .then((oferta: any) => {
                 this.oferta = oferta[0];
                 this.imagemDestaque = oferta[0].imagens[0].url;
             });
+        });
+
 
         /*
         // Observable (observável)

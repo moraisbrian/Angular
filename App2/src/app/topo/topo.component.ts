@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OfertasService } from "../ofertas.service";
 import { Observable, Subject, of } from 'rxjs';
 import { Oferta } from '../shared/oferta.model';
@@ -14,6 +14,7 @@ export class TopoComponent implements OnInit {
 
     public ofertas: Observable<Oferta[]>;
     public subjectPesquisa: Subject<string> = new Subject<string>();
+    // public arrayOfertas: Oferta[];
 
     constructor(private ofertasService: OfertasService) { }
 
@@ -29,16 +30,23 @@ export class TopoComponent implements OnInit {
                     return this.ofertasService.pesquisaOfertas(termo);
                 }),
                 catchError((erro: any) => {
-                    console.log("Erro do subject: ", erro);
                     return of<Oferta[]>([]);
                 })
             );
         
-        this.ofertas.subscribe((ofertas: Oferta[]) => console.log(ofertas));
+        // Array de ofertas para enviar para o template como String Interpolation
+        // Removido para inserção de pipe async
+        // this.ofertas.subscribe((ofertas: Oferta[]) => {
+        //     this.arrayOfertas = ofertas;
+        // });
     }
 
     public pesquisa(termoDaBusca: string): void {
         this.subjectPesquisa.next(termoDaBusca);
+    }
+
+    public limpaPesquisa(): void {
+        this.subjectPesquisa.next("");
     }
 
 }

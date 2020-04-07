@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -15,6 +15,16 @@ import { OfertaComponent } from './oferta/oferta.component';
 import { ComoUsarComponent } from './oferta/como-usar/como-usar.component';
 import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
+// Utilizando o idioma pt-BR
+import lacalePt from "@angular/common/locales/pt";
+import { registerLocaleData } from '@angular/common';
+
+// Importação de pipe
+import { DescricaoReduzida } from "./shared/descricao-reduzida.pipe";
+import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
+
+registerLocaleData(lacalePt);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,14 +35,16 @@ import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
     DiversaoComponent,
     OfertaComponent,
     ComoUsarComponent,
-    OndeFicaComponent
+    OndeFicaComponent,
+    DescricaoReduzida,
+    OrdemCompraComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+providers: [ { provide: LOCALE_ID, useValue: "pt" } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
