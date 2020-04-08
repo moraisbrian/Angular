@@ -213,6 +213,27 @@
       "complemento": "Predio",
       "formaPagamento": "dinheiro",
       "id": 4
+    },
+    {
+      "endereco": "Rua aurora",
+      "numero": "300",
+      "complemento": "",
+      "formaPagamento": "debito",
+      "id": 5
+    },
+    {
+      "endereco": "Rua Florinda",
+      "numero": "3250",
+      "complemento": "Casa 03",
+      "formaPagamento": "debito",
+      "id": 6
+    },
+    {
+      "endereco": "Rua dos bobos",
+      "numero": "0",
+      "complemento": "Sem teto",
+      "formaPagamento": "dinheiro",
+      "id": 7
     }
   ]
 }
