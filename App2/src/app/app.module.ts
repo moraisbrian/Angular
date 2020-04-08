@@ -22,6 +22,7 @@ import { registerLocaleData } from '@angular/common';
 // Importação de pipe
 import { DescricaoReduzida } from "./shared/descricao-reduzida.pipe";
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
+import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
 
 registerLocaleData(lacalePt);
 
@@ -37,7 +38,8 @@ registerLocaleData(lacalePt);
     ComoUsarComponent,
     OndeFicaComponent,
     DescricaoReduzida,
-    OrdemCompraComponent
+    OrdemCompraComponent,
+    OrdemCompraSucessoComponent
   ],
   imports: [
     BrowserModule,

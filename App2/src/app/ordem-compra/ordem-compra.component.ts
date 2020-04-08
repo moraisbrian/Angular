@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdemCompraService } from "../orderm-compra.service";
+import { Pedido } from "../shared/pedido.model";
 
 @Component({
     selector: 'app-ordem-compra',
     templateUrl: './ordem-compra.component.html',
-    styleUrls: ['./ordem-compra.component.css']
+    styleUrls: ['./ordem-compra.component.css'],
+    providers: [ OrdemCompraService ]
 })
 export class OrdemCompraComponent implements OnInit {
 
@@ -24,9 +27,13 @@ export class OrdemCompraComponent implements OnInit {
     public complementoEstadoPrimitivo: boolean = true;
     public formaPagamentoEstadoPrimitivo: boolean = true;
 
-    constructor() { }
+    // Controlar botão de confirmação do formulário
+    public formEstado: string = "disabled";
+
+    constructor(private ordemCompraService: OrdemCompraService) { }
 
     ngOnInit(): void {
+        
     }
 
     public atualizaEndereco(endereco: string): void {
@@ -39,6 +46,8 @@ export class OrdemCompraComponent implements OnInit {
         } else {
             this.enderecoValido = false;
         }
+
+        this.atualizaForm();
     }
 
     public atualizaNumero(numero: string): void {
@@ -51,6 +60,8 @@ export class OrdemCompraComponent implements OnInit {
         } else {
             this.numeroValido = false;
         }
+
+        this.atualizaForm();
     }
 
     public atualizaComplemento(complemento: string): void {
@@ -63,6 +74,8 @@ export class OrdemCompraComponent implements OnInit {
         } else {
             this.complementoValido = false;
         }
+
+        this.atualizaForm();
     }
 
     public atualizaFormaPagamento(formaPagamento: string): void {
@@ -75,6 +88,28 @@ export class OrdemCompraComponent implements OnInit {
         } else {
             this.formaPagamentoValido = false;
         }
+
+        this.atualizaForm();
+    }
+
+    public atualizaForm(): void {
+        if (this.enderecoValido && this.numeroValido && this.formaPagamentoValido) {
+            this.formEstado = "";
+        } else {
+            this.formEstado = "disabled";
+        }
+    }
+
+    public confirmarCompra(): void {
+        let pedido = new Pedido(
+            this.endereco,
+            this.numero,
+            this.complemento,
+            this.formaPagamento
+        );
+
+        this.ordemCompraService.efetivarCompra(pedido)
+            .subscribe();
     }
 
 }
