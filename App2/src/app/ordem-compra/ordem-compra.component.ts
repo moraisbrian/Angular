@@ -30,6 +30,8 @@ export class OrdemCompraComponent implements OnInit {
     // Controlar botão de confirmação do formulário
     public formEstado: string = "disabled";
 
+    public idPedidoCompra: number;
+
     constructor(private ordemCompraService: OrdemCompraService) { }
 
     ngOnInit(): void {
@@ -109,7 +111,9 @@ export class OrdemCompraComponent implements OnInit {
         );
 
         this.ordemCompraService.efetivarCompra(pedido)
-            .subscribe();
+            .subscribe((resposta: any) => {
+                this.idPedidoCompra = resposta.id;
+            });
     }
 
 }

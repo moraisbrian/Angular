@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { URL_API } from "./app.api";
 import { map } from 'rxjs/operators';
 
-
-
 @Injectable()
 export class OrdemCompraService {
 
@@ -25,7 +23,7 @@ export class OrdemCompraService {
             httpOptions
         )
         .pipe(
-            map((resposta: any) => console.log(resposta))
+            map((resposta: any) => resposta)
         );
     }
 }

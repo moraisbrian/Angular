@@ -192,6 +192,27 @@
       "complemento": "casa",
       "formaPagamento": "dinheiro",
       "id": 1
+    },
+    {
+      "endereco": "Maua",
+      "numero": "8",
+      "complemento": "",
+      "formaPagamento": "dinheiro",
+      "id": 2
+    },
+    {
+      "endereco": "Embu",
+      "numero": "4",
+      "complemento": "",
+      "formaPagamento": "debito",
+      "id": 3
+    },
+    {
+      "endereco": "Avenida",
+      "numero": "1123",
+      "complemento": "Predio",
+      "formaPagamento": "dinheiro",
+      "id": 4
     }
   ]
 }
