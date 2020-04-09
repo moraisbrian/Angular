@@ -241,6 +241,20 @@
       "complemento": "Casa 02",
       "formaPagamento": "debito",
       "id": 8
+    },
+    {
+      "endereco": "morro",
+      "numero": "200",
+      "complemento": "qualquer",
+      "formaPagamento": "dinheiro",
+      "id": 9
+    },
+    {
+      "endereco": "Outro Morro",
+      "numero": "300",
+      "complemento": "não sei",
+      "formaPagamento": "debito",
+      "id": 10
     }
   ]
 }
