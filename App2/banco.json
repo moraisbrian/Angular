@@ -234,6 +234,13 @@
       "complemento": "Sem teto",
       "formaPagamento": "dinheiro",
       "id": 7
+    },
+    {
+      "endereco": "Rua vigario alfonso nickrak",
+      "numero": "104",
+      "complemento": "Casa 02",
+      "formaPagamento": "debito",
+      "id": 8
     }
   ]
 }
