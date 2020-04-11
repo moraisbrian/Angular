@@ -19,6 +19,9 @@ import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra
 
 import { ROUTES } from './app.routes';
 
+// Seviço CarrinhoService
+import { CarrinhoService } from './carrinho.service';
+
 // Utilizando o idioma pt-BR
 import lacalePt from "@angular/common/locales/pt";
 import { registerLocaleData } from '@angular/common';
@@ -50,7 +53,10 @@ registerLocaleData(lacalePt);
     ReactiveFormsModule
     //FormsModule
   ],
-providers: [ { provide: LOCALE_ID, useValue: "pt" } ],
+providers: [ 
+    { provide: LOCALE_ID, useValue: "pt" }, 
+    CarrinhoService 
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
