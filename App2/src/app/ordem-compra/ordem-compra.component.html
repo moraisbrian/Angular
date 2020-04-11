@@ -1,44 +1,51 @@
 <div class="container">
+
     <div class="ordem-compra" *ngIf="idPedidoCompra === undefined">
         <form novalidate [formGroup]="formulario" (ngSubmit)="confirmarCompra()">
 
             <h5>Sua Compra</h5>
             <hr />
 
-            <div *ngFor="let item of itemCompraCarrinho">
-                <div class="form-row" style="background: #FAFAFA; padding: 20px; border-bottom: solid 1px #F0F0F0">
-                    <div class="form-group col-sm-1">
-                        <img [src]="item.img.url" class="img-fluid">
-                    </div>
-                    <div class="form-group col-sm-6">
-                        {{ item.titulo }}
-                        <br />
-                        {{ item.descricao_oferta }}
-                    </div>
+            <div *ngIf="carrinhoVazio; else msgVazio">
+                <div *ngFor="let item of itemCompraCarrinho">
+                    <div class="form-row" style="background: #FAFAFA; padding: 20px; border-bottom: solid 1px #F0F0F0">
+                        <div class="form-group col-sm-1">
+                            <img [src]="item.img.url" class="img-fluid">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            {{ item.titulo }}
+                            <br />
+                            {{ item.descricao_oferta }}
+                        </div>
 
-                    <div>
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn-link">-</button>
-                                {{ item.quantidade }}
-                                <button type="button" class="btn btn-link">+</button>
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <button (click)="remover(item)" type="button" class="btn btn-link">-</button>
+                                    {{ item.quantidade }}
+                                    <button (click)="adicionar(item)" type="button" class="btn btn-link">+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group col-sm-3 d-flex justify-content-end">
-                        {{ item.valor * item.quantidade | currency:"BRL":true }}
+                        <div class="form-group col-sm-3 d-flex justify-content-end">
+                            {{ item.valor * item.quantidade | currency:"BRL" }}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group col d-flex justify-content-end">
-                    <h4>Total do pedido: </h4>
+                <div class="form-row">
+                    <div class="form-group col d-flex justify-content-end">
+                        <h4>Total do pedido: {{ totalValor | currency:"BRL" }}</h4>
+                    </div>
                 </div>
+                <br />
             </div>
-            <br />
-
+            <ng-template #msgVazio>
+                <div class="form-row d-flex justify-content-center" style="background: #FAFAFA; padding: 20px; border-bottom: solid 1px #F0F0F0">
+                    Seu carrinho está vazio! Não perca tempo, aproveite as fortas.
+                </div>
+            </ng-template>
 
             <h5>Dados de entrega</h5>
             <hr />
@@ -96,4 +103,5 @@
     <div class="ordem-compra" *ngIf="idPedidoCompra !== undefined">
         <app-ordem-compra-sucesso [idPedidoCompra]="idPedidoCompra"></app-ordem-compra-sucesso>
     </div>
+
 </div>

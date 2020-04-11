@@ -15,6 +15,10 @@ export class OrdemCompraComponent implements OnInit {
 
     public idPedidoCompra: number;
     public itemCompraCarrinho: ItemCarrinho[] = [];
+    
+    public carrinhoVazio: boolean;
+
+    public totalValor: number;
 
     public formulario: FormGroup = new FormGroup({
         "endereco": new FormControl(null, [ Validators.required, Validators.minLength(3), Validators.maxLength(120) ]),
@@ -29,7 +33,9 @@ export class OrdemCompraComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.itemCompraCarrinho = this.carrinhoService.exibirItems();
+        this.itemCompraCarrinho = this.carrinhoService.exibirItens();
+        this.totalValor = this.carrinhoService.totalCarrinhoCompras();
+        this.carrinhoVazio = this.carrinhoService.exibirItens().length > 0;
     }
 
     public confirmarCompra(): void {
@@ -48,6 +54,18 @@ export class OrdemCompraComponent implements OnInit {
                     this.idPedidoCompra = resposta.id;
                 });
         }
+    }
+
+    public adicionar(item: ItemCarrinho): void {
+        this.carrinhoService.adicionarQuantidade(item);
+        this.totalValor = this.carrinhoService.totalCarrinhoCompras();
+        this.carrinhoVazio = this.carrinhoService.exibirItens().length > 0;
+    }
+
+    public remover(item: ItemCarrinho): void {
+        this.carrinhoService.removerQuantidade(item);
+        this.totalValor = this.carrinhoService.totalCarrinhoCompras();
+        this.carrinhoVazio = this.carrinhoService.exibirItens().length > 0;
     }
 
     // Poderia ser inserido no botão do formulário
