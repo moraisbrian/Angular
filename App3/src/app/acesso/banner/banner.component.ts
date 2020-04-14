@@ -33,7 +33,7 @@ export class BannerComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        setTimeout(() => this.logicaRotacao(), 2000);
+        setTimeout(() => this.logicaRotacao(), 3000);
     }
 
     public logicaRotacao(): void {
@@ -48,6 +48,6 @@ export class BannerComponent implements OnInit {
 
         this.imagens[index].estado = "visivel";
         
-        setTimeout(() => this.logicaRotacao(), 2000);
+        setTimeout(() => this.logicaRotacao(), 3000);
     }
 }
