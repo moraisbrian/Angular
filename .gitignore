@@ -166,3 +166,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Firebase configs
+firebaseConfig.ts
