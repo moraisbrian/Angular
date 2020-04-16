@@ -9,10 +9,18 @@ export class Autenticar {
 
         firebase.auth().createUserWithEmailAndPassword(usuario.email, usuario.senha)
             .then((resposta: any) => {
-                console.log(resposta);
+                delete usuario.senha;
+                firebase.database().ref(`usuario_detalhe/${btoa(usuario.email)}`)
+                    .set(usuario);
             })
             .catch((erro: Error) => {
                 console.log(erro);
             });
+    }
+
+    public autenticar(email: string, senha: string): void {
+        firebase.auth().signInWithEmailAndPassword(email, senha)
+            .then((resposta: any) => console.log(resposta))
+            .catch((erro: Error) => console.log(erro));
     }
 }
