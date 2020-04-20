@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from "@angular/forms";
 import * as firebase from "firebase";
 import { Bd } from "../../bd.service";
@@ -13,13 +13,13 @@ import { takeUntil } from "rxjs/operators";
 })
 export class IncluirPublicacaoComponent implements OnInit {
 
+    @Output() public atualizarTimeLine: EventEmitter<any> = new EventEmitter<any>();
+
     public email: string;
     public imagem: any;
 
     public progressoPublicacao: string = "pendente";
     public porcentagemUpload: number;
-
-    public resetaModal: string = "on";
 
     public formulario: FormGroup = new FormGroup({
         "titulo": new FormControl(null)
@@ -57,11 +57,10 @@ export class IncluirPublicacaoComponent implements OnInit {
 
                 if (this.progressoService.status === "concluido") {
                     this.progressoPublicacao = "concluido";
+                    this.atualizarTimeLine.emit();
                     continua.next(false);
                 }
             });
-            
-
     }
 
     public preparaImagemUpload(event: Event): void {

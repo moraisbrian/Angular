@@ -35,6 +35,7 @@ export class Bd {
     public consutarPublicacoes(email: string): Promise<any> {
         return new Promise((resolve, reject) => {
             firebase.database().ref(`publicacoes/${btoa(email)}`)
+                .orderByKey()
                 .once("value")
                 .then((snapshot: any) => {
 
@@ -42,9 +43,15 @@ export class Bd {
 
                     snapshot.forEach((childSnapshot: any) => {
                         let publicacao = childSnapshot.val();
-
+                        publicacao.key = childSnapshot.key;
+                        publicacoes.push(publicacao);
+                    });
+                    return publicacoes.reverse();
+                })
+                .then((publicacoes: any) => {
+                    publicacoes.forEach((publicacao) => {
                         firebase.storage().ref()
-                            .child(`imagens/${childSnapshot.key}`)
+                            .child(`imagens/${publicacao.key}`)
                             .getDownloadURL()
                             .then((url: string) => {
                                 publicacao.url = url;
@@ -53,11 +60,10 @@ export class Bd {
                                     .once("value")
                                     .then((snapshot: any) => {
                                         publicacao.nome = snapshot.val().nome_usuario;
-                                        publicacoes.push(publicacao);
                                     });
                             });
                     });
-                    resolve(publicacoes)
+                    resolve(publicacoes);
                 });
         });
     }
