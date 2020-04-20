@@ -5,7 +5,7 @@ import { Progresso } from './progresso.service';
 @Injectable()
 export class Bd {
 
-    constructor(private progressoService: Progresso) {}
+    constructor(private progressoService: Progresso) { }
 
     public publicar(publicacao: any): void {
 
@@ -27,9 +27,39 @@ export class Bd {
                         () => { // Finalização do processo
                             this.progressoService.status = "concluido";
                         }
-            );
+                    );
+            });
+
+    }
+
+    public consutarPublicacoes(email: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            firebase.database().ref(`publicacoes/${btoa(email)}`)
+                .once("value")
+                .then((snapshot: any) => {
+
+                    let publicacoes: Array<any> = [];
+
+                    snapshot.forEach((childSnapshot: any) => {
+                        let publicacao = childSnapshot.val();
+
+                        firebase.storage().ref()
+                            .child(`imagens/${childSnapshot.key}`)
+                            .getDownloadURL()
+                            .then((url: string) => {
+                                publicacao.url = url;
+
+                                firebase.database().ref(`usuario_detalhe/${btoa(email)}`)
+                                    .once("value")
+                                    .then((snapshot: any) => {
+                                        publicacao.nome = snapshot.val().nome_usuario;
+                                        publicacoes.push(publicacao);
+                                    });
+                            });
+                    });
+                    resolve(publicacoes)
+                });
         });
-        
     }
 
 }

@@ -19,6 +19,8 @@ export class IncluirPublicacaoComponent implements OnInit {
     public progressoPublicacao: string = "pendente";
     public porcentagemUpload: number;
 
+    public resetaModal: string = "on";
+
     public formulario: FormGroup = new FormGroup({
         "titulo": new FormControl(null)
     });
@@ -64,6 +66,14 @@ export class IncluirPublicacaoComponent implements OnInit {
 
     public preparaImagemUpload(event: Event): void {
         this.imagem = ((<HTMLInputElement>event.target).files);
+    }
+
+    public resetModal(): void {
+        setTimeout(() => {
+            this.porcentagemUpload = 0;
+            this.progressoPublicacao = "pendente";
+            this.formulario.setValue({"titulo": ""});
+        }, 1000);
     }
 
 }
